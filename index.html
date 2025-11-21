@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首頁 - 永豐餘 企業入口網站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei", "微軟正黑體", Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        /* 頂部導航欄 */
+        .top-nav {
+            background-color: #5a5a5a;
+            color: white;
+            padding: 12px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .logo-subtitle {
+            font-size: 16px;
+            color: #ddd;
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .company-select {
+            padding: 8px 15px;
+            font-size: 14px;
+            border: 1px solid #999;
+            border-radius: 4px;
+            background-color: white;
+            color: #333;
+            min-width: 200px;
+        }
+
+        .settings-icon {
+            width: 35px;
+            height: 35px;
+            background-color: transparent;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* 主內容區 */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* 標籤頁容器 */
+        .tabs-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* 標籤頁 */
+        .tabs {
+            display: flex;
+            background-color: #f5f5f5;
+            border-bottom: 3px solid #e53935;
+            margin-bottom: 0;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tab.active {
+            background-color: #e53935;
+            color: white;
+        }
+
+        /* Banner 輪播 */
+        .banner-section {
+            height: 300px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 內容網格布局 */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+            padding: 20px 0;
+        }
+
+        /* 左欄 */
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* 右欄 */
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* 區塊標題 */
+        .section-box {
+            background-color: white;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border: 2px solid #e53935;
+            background-color: white;
+            color: #333;
+        }
+
+        /* 可折疊區塊 */
+        .collapsible-header {
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #e8e8e8;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .collapsible-header:hover {
+            background-color: #ddd;
+        }
+
+        .collapsible-content {
+            padding: 20px;
+            display: none;
+            background-color: #f9f9f9;
+        }
+
+        .collapsible-content.active {
+            display: block;
+        }
+
+        .toggle-icon {
+            font-size: 16px;
+            transition: transform 0.3s;
+        }
+
+        .toggle-icon.open {
+            transform: rotate(180deg);
+        }
+
+        /* 系統標籤 */
+        .system-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 0;
+        }
+
+        .system-tab {
+            flex: 1;
+            padding: 15px;
+            background-color: #e53935;
+            color: white;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .system-tab.active {
+            background-color: #c62828;
+        }
+
+        .system-tab:hover {
+            background-color: #c62828;
+        }
+
+        /* 系統圖標網格 */
+        .system-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 30px;
+            padding: 30px 20px;
+            background-color: white;
+        }
+
+        .system-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .system-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .system-icon {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: #333;
+        }
+
+        .system-name {
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        /* 公告列表 */
+        .announcement-list {
+            list-style: none;
+        }
+
+        .announcement-item {
+            padding: 12px 15px;
+            border-left: 4px solid #e53935;
+            margin-bottom: 8px;
+            background-color: white;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .announcement-label {
+            background-color: #f5f5f5;
+            padding: 4px 10px;
+            font-size: 13px;
+            color: #666;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+
+        .announcement-date {
+            font-weight: normal;
+            color: #666;
+            min-width: 100px;
+            font-size: 14px;
+        }
+
+        .announcement-title {
+            color: #333;
+            flex: 1;
+            font-size: 14px;
+        }
+
+        /* 待簽核項目 */
+        .approval-item {
+            padding: 15px 20px;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #ff9800;
+            margin-bottom: 10px;
+        }
+
+        .approval-icon {
+            display: inline-block;
+            padding: 8px 12px;
+            background-color: #ff9800;
+            color: white;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .approval-title {
+            flex: 1;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .approval-count {
+            background-color: #e53935;
+            color: white;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* 郵件區塊 */
+        .mail-section {
+            padding: 20px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+        }
+
+        .mail-icon {
+            color: #e53935;
+            font-size: 24px;
+        }
+
+        /* 聯絡人查詢 */
+        .contact-search {
+            padding: 20px;
+            background-color: white;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .search-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #e53935;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: #c62828;
+        }
+
+        /* 返回頂部按鈕 - 在客服機器人按鈕上方 */
+        .back-to-top {
+            position: fixed;
+            bottom: 110px;
+            right: 35px;
+            width: 50px;
+            height: 50px;
+            background-color: #c53030;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .back-to-top::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border-left: 3px solid white;
+            border-top: 3px solid white;
+            transform: rotate(45deg);
+            margin-top: 4px;
+        }
+
+        .back-to-top:hover {
+            background-color: #a02727;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        /* 分頁導航 */
+        .pagination {
+            text-align: center;
+            margin-top: 10px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .nav-arrows {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .nav-arrow {
+            width: 40px;
+            height: 40px;
+            background-color: #666;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .nav-arrow:hover {
+            background-color: #444;
+        }
+
+        .system-navigation {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-start;
+            padding: 20px;
+            background-color: white;
+        }
+
+        .system-nav-arrow {
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
+            color: #333;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .system-nav-arrow:hover {
+            background-color: #f5f5f5;
+            border-color: #999;
+        }
+
+        /* ============================
+           永豐餘 YFY Chatbot Brand Theme
+           ============================ */
+
+        :root {
+            --yfy-red: #D3112F;
+            --yfy-black: #000000;
+            --yfy-gray: #f6f6f6;
+        }
+
+        /* 🔘 右下角聊天按鈕 - 固定在視窗右下角 */
+        #chat-button,
+        [id*="chat-button"],
+        .chat-button {
+            background: var(--yfy-red) !important;
+            color: white !important;
+            border-radius: 50% !important;
+            width: 60px !important;
+            height: 60px !important;
+            font-size: 26px !important;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25) !important;
+            bottom: 30px !important;
+            right: 30px !important;
+            position: fixed !important;
+            z-index: 1000 !important;
+            left: auto !important;
+            top: auto !important;
+        }
+
+        /* 💬 主視窗 - 固定在右下角 */
+        #chat-box,
+        [id*="chat-box"],
+        .chat-box {
+            border-radius: 18px !important;
+            border: none !important;
+            overflow: hidden !important;
+            box-shadow: 0px 10px 40px rgba(0,0,0,0.2) !important;
+            max-height: calc(100vh - 150px) !important;
+            bottom: 110px !important;
+            right: 30px !important;
+            height: 600px !important;
+            position: fixed !important;
+            z-index: 999 !important;
+            left: auto !important;
+            top: auto !important;
+        }
+
+        /* 🔺 Header（淡粉紅色 + Logo） */
+        #chat-header {
+            background: #fcd9dd !important;
+            color: var(--yfy-red) !important;
+            padding-left: 70px !important;
+            position: relative !important;
+        }
+
+        /* ⬅️ 插入永豐餘 Logo（本地檔案） */
+        #chat-header::before {
+            content: "" !important;
+            position: absolute !important;
+            left: 20px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            width: 32px !important;
+            height: 32px !important;
+            background-image: url("assets/images/logo.png") !important;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+        }
+
+        /* ✏️ Header 名稱 & 狀態文字 */
+        #chat-header-name {
+            font-weight: bold !important;
+            color: var(--yfy-red) !important;
+        }
+
+        #chat-header-status {
+            color: #D3112F !important;
+            opacity: 0.8 !important;
+        }
+
+        /* 🧩 User 氣泡 */
+        #chat-messages .message.user,
+        .message.user,
+        .user-message,
+        div[class="user-message"] {
+            background: #eaebee !important;
+            background-color: #eaebee !important;
+            color: #000000 !important;
+            border-radius: 14px !important;
+        }
+
+        /* system-message */
+        .system-message,
+        .message.system,
+        [class*="system-message"] {
+            background: #eaebee !important;
+            background-color: #eaebee !important;
+            color: #000000 !important;
+            border-radius: 14px !important;
+        }
+
+        /* 🤖 Bot 氣泡 */
+        #chat-messages .message.bot,
+        .message.bot,
+        [class*="bot-message"],
+        [class*="botMessage"],
+        .bot-message {
+            background: #eaebee !important;
+            background-color: #eaebee !important;
+            border: 1px solid #d0d1d5 !important;
+            padding: 12px 15px !important;
+            margin: 5px 10px !important;
+            max-width: 85% !important;
+            word-wrap: break-word !important;
+            word-break: break-word !important;
+            overflow-wrap: break-word !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Bot 訊息內的所有子元素 */
+        .message.bot *,
+        .bot-message *,
+        [class*="bot-message"] *,
+        .system-message * {
+            max-width: 100% !important;
+            word-wrap: break-word !important;
+            word-break: break-word !important;
+            overflow-wrap: break-word !important;
+        }
+
+        /* Bot 訊息內的列表 */
+        .message.bot ul,
+        .message.bot ol,
+        .bot-message ul,
+        .bot-message ol,
+        .system-message ul,
+        .system-message ol {
+            padding-left: 20px !important;
+            margin: 5px 0 !important;
+        }
+
+        /* Bot 訊息內的列表項目 */
+        .message.bot li,
+        .bot-message li,
+        .system-message li {
+            word-wrap: break-word !important;
+            word-break: break-word !important;
+            overflow-wrap: break-word !important;
+        }
+
+        /* 👤 Bot avatar：改成永豐餘 logo */
+        .message-avatar img {
+            width: 30px !important;
+            height: 30px !important;
+            border-radius: 4px !important;
+            content: url("assets/images/logo.png") !important;
+        }
+
+        /* 📝 輸入框樣式 */
+        #chat-input {
+            background: var(--yfy-gray) !important;
+            border-top: 1px solid #eee !important;
+            position: relative !important;
+            z-index: 10 !important;
+        }
+
+        #chat-input button {
+            color: var(--yfy-red) !important;
+        }
+
+        /* 確保訊息區域不會遮住輸入框，且內容不超出邊界 */
+        #chat-messages {
+            max-height: calc(100% - 140px) !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            padding-bottom: 10px !important;
+            box-sizing: border-box !important;
+        }
+
+        /* 確保訊息泡泡不超出邊界 */
+        #chat-messages > div,
+        .message,
+        .system-message,
+        .user-message,
+        [class*="message"] {
+            max-width: 100% !important;
+            word-wrap: break-word !important;
+            word-break: break-word !important;
+            overflow-wrap: break-word !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Bot 訊息內容限制 */
+        #chat-messages .message.bot,
+        .message.bot,
+        .bot-message,
+        [class*="bot-message"],
+        [class*="system-message"] {
+            max-width: 85% !important;
+            word-wrap: break-word !important;
+            word-break: break-word !important;
+            overflow-wrap: break-word !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- 頂部導航欄 -->
+    <nav class="top-nav">
+        <div class="logo-section">
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="永豐餘 Logo">
+            </div>
+            <span class="logo-text">永豐餘</span>
+            <span class="logo-subtitle">|企業入口網站|</span>
+        </div>
+        <div class="user-section">
+            <select class="company-select">
+                <option>元信達資訊股份有限公司</option>
+                <option>永豐餘集團</option>
+                <option>其他公司</option>
+            </select>
+            <div class="settings-icon">⚙</div>
+            <div class="user-avatar"></div>
+        </div>
+    </nav>
+
+    <!-- 標籤頁 -->
+    <div class="tabs-wrapper">
+        <div class="tabs">
+            <button class="tab active">首頁</button>
+        </div>
+    </div>
+
+    <!-- Banner 輪播區 -->
+    <div class="banner-section">
+        <img class="banner-image" src="assets/images/banner.png" alt="Banner">
+    </div>
+
+    <!-- 主內容區 -->
+    <main class="main-content">
+        <div class="content-grid">
+            <!-- 左欄 -->
+            <div class="left-column">
+                <!-- 最新消息 -->
+                <div class="section-box">
+                    <div class="section-title">最新消息</div>
+
+                    <!-- 集團公告 -->
+                    <div class="collapsible-header" onclick="toggleSection(this)">
+                        <span>集團公告</span>
+                        <span class="toggle-icon open">▲</span>
+                    </div>
+                    <div class="collapsible-content active">
+                        <ul class="announcement-list">
+                            <li class="announcement-item">
+                                <span class="announcement-date">11/11/2025</span>
+                                <span class="announcement-title">永豐餘總部信誼大樓同仁分機表 (11/11更新)</span>
+                            </li>
+                            <li class="announcement-item">
+                                <span class="announcement-date">03/27/2025</span>
+                                <span class="announcement-title">廠區網路電話代碼表更新</span>
+                            </li>
+                            <li class="announcement-item">
+                                <span class="announcement-date">12/04/2024</span>
+                                <span class="announcement-title">永豐餘百年慶圓滿落幕 大家長何壽川: 衷心感謝同仁們的付出與努力 成就Better Choice</span>
+                            </li>
+                            <li class="announcement-item">
+                                <span class="announcement-date">08/27/2024</span>
+                                <span class="announcement-title">何壽川捐贈最新MRI與CT給好心肝 員工健檢更精確</span>
+                            </li>
+                        </ul>
+                        <div class="pagination">1 / 1</div>
+                        <div class="nav-arrows">
+                            <button class="nav-arrow">❮</button>
+                            <button class="nav-arrow">❯</button>
+                        </div>
+                    </div>
+
+                    <!-- 集團新聞 -->
+                    <div class="collapsible-header" onclick="toggleSection(this)">
+                        <span>集團新聞</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <p style="color: #666; padding: 20px; text-align: center;">集團新聞內容</p>
+                    </div>
+
+                    <!-- 職安衛專區 -->
+                    <div class="collapsible-header" onclick="toggleSection(this)">
+                        <span>職安衛專區</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <p style="color: #666; padding: 20px; text-align: center;">職安衛相關內容</p>
+                    </div>
+                </div>
+
+                <!-- 常用系統 -->
+                <div class="system-tabs">
+                    <button class="system-tab active">常用系統</button>
+                    <button class="system-tab">所有系統</button>
+                    <button class="system-tab">我的最愛</button>
+                </div>
+
+                <div class="system-grid">
+                    <div class="system-item">
+                        <div class="system-icon">🛡️</div>
+                        <div class="system-name">員工健康申報</div>
+                    </div>
+                    <div class="system-item">
+                        <div class="system-icon">⏰</div>
+                        <div class="system-name">員工線上打卡</div>
+                    </div>
+                    <div class="system-item">
+                        <div class="system-icon">📋</div>
+                        <div class="system-name">商業流程管理<br>BPM</div>
+                    </div>
+                    <div class="system-item">
+                        <div class="system-icon">👤</div>
+                        <div class="system-name">HRIS</div>
+                    </div>
+                    <div class="system-item">
+                        <div class="system-icon">📹</div>
+                        <div class="system-name">視訊會議預約</div>
+                    </div>
+                    <div class="system-item">
+                        <div class="system-icon">📅</div>
+                        <div class="system-name">會議室預約</div>
+                    </div>
+                    <div class="system-item">
+                        <div class="system-icon">📚</div>
+                        <div class="system-name">LMS<br>學習管理系統</div>
+                    </div>
+                    <div class="system-item">
+                        <div class="system-icon">📊</div>
+                        <div class="system-name">資料查詢中心</div>
+                    </div>
+                    <div class="system-item">
+                        <div class="system-icon">💰</div>
+                        <div class="system-name">CMS<br>資本支出管理</div>
+                    </div>
+                    <div class="system-item">
+                        <div class="system-icon">🖥️</div>
+                        <div class="system-name">舊資訊服務單</div>
+                    </div>
+                </div>
+                <div class="system-navigation">
+                    <button class="system-nav-arrow">❮</button>
+                    <button class="system-nav-arrow">❯</button>
+                </div>
+
+                <!-- 員工專區 -->
+                <div class="section-box">
+                    <div class="section-title">員工專區</div>
+                </div>
+
+                <!-- 福利專區 -->
+                <div class="section-box">
+                    <div class="collapsible-header" onclick="toggleSection(this)">
+                        <span>福利專區</span>
+                        <span class="toggle-icon open">▲</span>
+                    </div>
+                    <div class="collapsible-content active">
+                        <ul class="announcement-list">
+                            <li class="announcement-item">
+                                <span class="announcement-label">置頂</span>
+                                <span class="announcement-title">星宇航空 台灣企業會員升級通知</span>
+                            </li>
+                            <li class="announcement-item">
+                                <span class="announcement-date">07/24/2025</span>
+                                <span class="announcement-title">華航【企業會員方案網路購票優惠】</span>
+                            </li>
+                            <li class="announcement-item">
+                                <span class="announcement-date">06/10/2025</span>
+                                <span class="announcement-title">東航企業通報 【企業客戶-專享禮遇】</span>
+                            </li>
+                            <li class="announcement-item">
+                                <span class="announcement-date">04/18/2025</span>
+                                <span class="announcement-title">公告長榮航空BizFam差旅平台</span>
+                            </li>
+                            <li class="announcement-item">
+                                <span class="announcement-date">09/27/2024</span>
+                                <span class="announcement-title">公告商務出差特約旅行社</span>
+                            </li>
+                            <li class="announcement-item">
+                                <span class="announcement-date">08/02/2023</span>
+                                <span class="announcement-title">公告永豐餘聯合福委會已簽約之特約廠商資料，歡迎同仁多加利用...</span>
+                            </li>
+                        </ul>
+                        <div class="pagination">1 / 1</div>
+                        <div class="nav-arrows">
+                            <button class="nav-arrow">❮</button>
+                            <button class="nav-arrow">❯</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 我的郵件 -->
+                <div class="section-box">
+                    <div class="section-title">我的郵件</div>
+                    <div class="mail-section">
+                        <span class="mail-icon">✉</span>
+                        <span>你有 <strong>0</strong> 封新郵件</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右欄 -->
+            <div class="right-column">
+                <!-- 待簽核清單 -->
+                <div class="section-box">
+                    <div class="section-title">待簽核清單</div>
+                    <div style="padding: 15px;">
+                        <div class="approval-item">
+                            <div>
+                                <span class="approval-icon">BPM</span>
+                                <span class="approval-title">績效考核單</span>
+                            </div>
+                            <span class="approval-count">1</span>
+                        </div>
+                        <div class="approval-item">
+                            <div>
+                                <span class="approval-icon">BPM</span>
+                                <span class="approval-title">延長工時查核確認單</span>
+                            </div>
+                            <span class="approval-count">9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 聯絡人查詢 -->
+                <div class="section-box">
+                    <div class="section-title">聯絡人查詢</div>
+                    <div class="contact-search">
+                        <input type="text" class="search-input" placeholder="請輸入姓名或部門">
+                        <button class="search-button">查詢</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 返回頂部按鈕 -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()"></button>
+
+    <script>
+        // 切換區塊展開/收合
+        function toggleSection(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.toggle-icon');
+
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                icon.textContent = '▼';
+                icon.classList.remove('open');
+            } else {
+                content.classList.add('active');
+                icon.textContent = '▲';
+                icon.classList.add('open');
+            }
+        }
+
+        // 返回頂部功能
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 監聽滾動事件，顯示/隱藏返回頂部按鈕
+        window.addEventListener('scroll', function() {
+            const backToTopBtn = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        // 系統標籤切換
+        document.querySelectorAll('.system-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.system-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // 系統項目點擊事件
+        document.querySelectorAll('.system-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const systemName = this.querySelector('.system-name').textContent.trim();
+                alert('開啟系統: ' + systemName);
+            });
+        });
+    </script>
+</body>
+
+<!-- 嵌入客服機器人 -->
+<script src="https://ragi.chat/modules/js/v1.0.0.js"></script><script>ragi.init({channel_id: "eb814ce9-d06a-43e4-98fd-0e7f96a01930"});
+</script>
+
+<!-- 自定義客服機器人名稱和樣式 -->
+<script>
+  const renameInterval = setInterval(() => {
+    const nameEl = document.querySelector("#chat-header-name");
+    if (nameEl) {
+      nameEl.textContent = "IT小幫手";
+      clearInterval(renameInterval);
+    }
+  }, 300);
+
+  // 監聽並修改訊息的背景色
+  const observer = new MutationObserver(() => {
+    // 修改 user-message
+    const userMessages = document.querySelectorAll('.user-message, div[class="user-message"]');
+    userMessages.forEach(msg => {
+      if (msg.className === 'user-message') {
+        msg.style.backgroundColor = '#eaebee';
+        msg.style.background = '#eaebee';
+        msg.style.color = '#000000';
+      }
+    });
+
+    // 修改 system-message
+    const systemMessages = document.querySelectorAll('.system-message, [class*="system-message"]');
+    systemMessages.forEach(msg => {
+      msg.style.backgroundColor = '#eaebee';
+      msg.style.background = '#eaebee';
+      msg.style.color = '#000000';
+    });
+  });
+
+  // 開始監聽聊天視窗的變化
+  setTimeout(() => {
+    const chatBox = document.querySelector('#chat-messages, [id*="chat"], [class*="messages"]');
+    if (chatBox) {
+      observer.observe(chatBox, { childList: true, subtree: true });
+    }
+  }, 1000);
+</script>
+
+</html>
